@@ -28,9 +28,9 @@ Search Project
   Search input
 
 Projects
-  Project 1 + description
-  Project 2 + description
-  Project 3 + description
+  React Portfolio + description
+  Recipe Hub + description
+  React Forms + description
 ```
 
 ## Setup and usage

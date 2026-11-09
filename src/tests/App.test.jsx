@@ -16,13 +16,13 @@ describe("Personal showcase app", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: "Project 1" }),
+      screen.getByRole("heading", { name: "React Portfolio" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Project 2" }),
+      screen.getByRole("heading", { name: "Recipe Hub" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Project 3" }),
+      screen.getByRole("heading", { name: "React Forms" }),
     ).toBeInTheDocument();
   });
 
@@ -31,13 +31,13 @@ describe("Personal showcase app", () => {
     render(<App />);
 
     const search = screen.getByLabelText("Search projects");
-    await user.type(search, "description of project 2");
+    await user.type(search, "recipe");
 
     expect(
-      screen.getByRole("heading", { name: "Project 2" }),
+      screen.getByRole("heading", { name: "Recipe Hub" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { name: "Project 1" }),
+      screen.queryByRole("heading", { name: "React Portfolio" }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("status")).toHaveTextContent("1 project found");
 
@@ -84,7 +84,7 @@ describe("Personal showcase app", () => {
       screen.getByRole("alert"),
     ).toHaveTextContent("Please enter a project title and description.");
     expect(
-      screen.getByRole("heading", { name: "Project 1" }),
+      screen.getByRole("heading", { name: "React Portfolio" }),
     ).toBeInTheDocument();
   });
 
@@ -93,11 +93,11 @@ describe("Personal showcase app", () => {
     render(<App />);
 
     await user.click(
-      screen.getByRole("button", { name: "Remove Project 1" }),
+      screen.getByRole("button", { name: "Remove React Portfolio" }),
     );
 
     expect(
-      screen.queryByRole("heading", { name: "Project 1" }),
+      screen.queryByRole("heading", { name: "React Portfolio" }),
     ).not.toBeInTheDocument();
   });
 });

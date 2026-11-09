@@ -1,19 +1,22 @@
 // Starter projects shown the first time the app is opened.
 export const seedProjects = [
   {
-    id: "project-1",
-    title: "Project 1",
-    description: "This is the description of project 1.",
+    id: "react-portfolio",
+    title: "React Portfolio",
+    description:
+      "A personal portfolio website built with React to showcase my projects and skills.",
   },
   {
-    id: "project-2",
-    title: "Project 2",
-    description: "This is the description of project 2.",
+    id: "recipe-hub",
+    title: "Recipe Hub",
+    description:
+      "A recipe website where users can browse, search, and view different recipes.",
   },
   {
-    id: "project-3",
-    title: "Project 3",
-    description: "This is the description of project 3.",
+    id: "react-forms",
+    title: "React Forms",
+    description:
+      "A React project that demonstrates form handling, validation, and user input.",
   },
 ];
 
