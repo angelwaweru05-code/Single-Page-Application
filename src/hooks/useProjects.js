@@ -37,7 +37,7 @@ export default function useProjects() {
   // Put the newest project first so it is easy to see after adding it.
   function addProject(project) {
     setProjects((current) => [
-      { ...project, id: createId(), featured: false },
+      { ...project, id: createId() },
       ...current,
     ]);
   }

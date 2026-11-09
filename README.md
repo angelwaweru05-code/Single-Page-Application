@@ -1,25 +1,37 @@
-# My Project Showcase
+# My personal Showcase App
 
-A simple single-page portfolio application built with React. It displays a list of projects and allows users to search, filter, add, and remove projects. The project list is saved in the browser using `localStorage`.
+A simple single-page project showcase built with React. The page has a heading, an add-project form, a search box, and a list of projects.
 
-This project was created as a student project to practise React components, state management, props, hooks, forms, responsive CSS, and testing.
+This project was created as a student project to practise React components, state, props, hooks, forms, responsive CSS, and testing.
 
 ## Features
 
-- Landing page with a project list and project cards
-- Search projects by title, category, description, year, or tag
-- Filter projects by category
-- Add a new project using a form
+- Landing page with a list of projects
+- Add-project form with title and description fields
+- Search projects by title or description
 - Remove a project from the list
-- Save changes in `localStorage`
-- Responsive layout for desktop, tablet, and mobile
-- Basic accessibility support:
-  - Form labels
-  - Keyboard Escape to close the form
-  - Visible focus styles
-  - Accessible delete button labels
-  - Live result count
-- Unit and integration tests with Jest and React Testing Library
+- Save projects in the browser using `localStorage`
+- Responsive layout for desktop and mobile
+- Keyboard-friendly form labels and accessible buttons
+- Tests using Jest and React Testing Library
+
+## Page layout
+
+```text
+My personal Showcase App
+Add Project
+  Title
+  Description
+  Add Project button
+
+Search Project
+  Search input
+
+Projects
+  Project 1 + description
+  Project 2 + description
+  Project 3 + description
+```
 
 ## Setup and usage
 
@@ -62,14 +74,12 @@ npm run preview
 
 ## How to use the app
 
-1. Scroll to the project section to view the starter projects.
-2. Type in the search box to filter projects.
-3. Click a category button to show only that category.
-4. Click **Add Project** in the header or hero section.
-5. Fill in the project title and description, then submit the form.
-6. Click **Remove** on a card to delete a project.
+1. Enter a project title and description in the **Add Project** section.
+2. Click **Add Project** to add it to the list.
+3. Use the **Search Project** box to filter projects by title or description.
+4. Click **Remove** on a project to delete it.
 
-Added and removed projects are stored in the browser and remain after a page refresh.
+Added and removed projects are saved in the browser and remain after a page refresh.
 
 ## Project structure
 
@@ -79,10 +89,9 @@ src/
 │   ├── AddProjectForm.jsx
 │   ├── Footer.jsx
 │   ├── Header.jsx
-│   ├── Hero.jsx
 │   ├── ProjectCard.jsx
 │   ├── ProjectGrid.jsx
-│   └── Toolbar.jsx
+│   └── SearchBar.jsx
 ├── data/
 │   └── projects.js
 ├── hooks/
@@ -94,7 +103,7 @@ src/
 │   ├── AddProjectForm.test.jsx
 │   ├── App.test.jsx
 │   ├── ProjectCard.test.jsx
-│   └── Toolbar.test.jsx
+│   └── SearchBar.test.jsx
 ├── App.jsx
 └── main.jsx
 ```
@@ -104,36 +113,33 @@ src/
 ```text
 App
 ├── Header
-├── Hero
-├── Work section
-│   ├── Toolbar
-│   └── ProjectGrid
-│       └── ProjectCard
-├── Footer
-└── AddProjectForm
+├── AddProjectForm
+├── SearchBar
+├── ProjectGrid
+│   └── ProjectCard
+└── Footer
 ```
 
 ## State and data flow
 
 - `useProjects` holds the full project list and saves it to `localStorage`.
-- `useProjectFilters` holds the search text and selected category, then calculates the filtered list.
-- `App` holds `isFormOpen`, which controls whether the form modal is visible.
-- `App` passes data down to child components through props.
-- Child components send actions back to `App` through callback functions.
+- `useProjectFilters` holds the search text and calculates the filtered list.
+- `App` passes the project list to `ProjectGrid`.
+- `App` passes search values to `SearchBar`.
+- `AddProjectForm` sends a new project to `App` through the `onAddProject` callback.
+- `ProjectCard` sends a remove action to `App` through the `onDeleteProject` callback.
 
 ## Testing
 
 The project uses Jest and React Testing Library. The tests cover:
 
-- Rendering the landing page and project cards
-- Searching and category filtering
-- In-page navigation links
+- Rendering the heading and starter projects
+- Searching by title or description
 - Adding a project and saving it to `localStorage`
 - Form validation
 - Removing a project
-- Toolbar interactions
-- Project card details and delete actions
-- Add-project form submission and closing behaviour
+- Search input interactions
+- Project card rendering and delete actions
 
 Run all tests with:
 
@@ -143,19 +149,9 @@ npm test
 
 ## Known limitations
 
-- Projects are saved only in the current browser using `localStorage`. There is no backend, database, or user account system.
-- Clearing browser storage will remove added projects and bring back the starter projects.
-- There is no project details page. Project information is shown only on the cards.
-- There is no image upload. Users must provide an image URL.
-- Images come from external URLs, so they require an internet connection.
-- Deleting a project happens immediately and there is no undo option.
-- There is no real authentication or admin access control.
-
-## Possible future improvements
-
-- Add a backend and database
-- Add image uploads
-- Add a project details page
-- Add edit-project functionality
-- Add sorting by year or title
-- Add pagination for larger project lists
+- Projects are saved only in the current browser using `localStorage`.
+- There is no backend, database, or login system.
+- Clearing browser storage resets the project list to the starter projects.
+- There is no edit-project feature.
+- Deleting a project has no undo option.
+- Project images and categories are not included in this simple version.

@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 import { STORAGE_KEY } from "../data/projects";
@@ -7,159 +7,85 @@ beforeEach(() => {
   window.localStorage.clear();
 });
 
-describe("Project showcase", () => {
-  test("renders the landing page and the seeded project list", () => {
+describe("Personal showcase app", () => {
+  test("renders the heading and the starter projects", () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", {
-        name: /my project showcase/i,
-      }),
+      screen.getByRole("heading", { name: "My personal Showcase App" }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: "Aria Coffee Rebrand" }),
+      screen.getByRole("heading", { name: "Project 1" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Northwind Banking App" }),
+      screen.getByRole("heading", { name: "Project 2" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "FORM Design Festival" }),
+      screen.getByRole("heading", { name: "Project 3" }),
     ).toBeInTheDocument();
   });
 
-  test("filters projects by search term and shows an empty state", async () => {
+  test("searches projects by title or description", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     const search = screen.getByLabelText("Search projects");
-    await user.type(search, "packaging");
+    await user.type(search, "description of project 2");
 
     expect(
-      screen.getByRole("heading", { name: "Aria Coffee Rebrand" }),
+      screen.getByRole("heading", { name: "Project 2" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { name: "Northwind Banking App" }),
+      screen.queryByRole("heading", { name: "Project 1" }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole("status")).toHaveTextContent("1 project");
+    expect(screen.getByRole("status")).toHaveTextContent("1 project found");
 
     await user.clear(search);
     await user.type(search, "does-not-exist");
 
-    expect(
-      screen.getByRole("heading", {
-        name: /no projects match that search/i,
-      }),
-    ).toBeInTheDocument();
+    expect(screen.getByText("No projects found.")).toBeInTheDocument();
   });
 
-  test("filters projects by category chip", async () => {
+  test("adds a new project and saves it to localStorage", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(screen.getByRole("button", { name: "Motion" }));
+    await user.type(screen.getByLabelText("Title"), "New Project");
+    await user.type(
+      screen.getByLabelText("Description"),
+      "This is a new project description.",
+    );
+    await user.click(screen.getByRole("button", { name: "Add Project" }));
 
     expect(
-      screen.getByRole("heading", { name: "Kinetic Type Studies" }),
+      screen.getByRole("heading", { name: "New Project" }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByRole("heading", { name: "Aria Coffee Rebrand" }),
-    ).not.toBeInTheDocument();
-
-    await user.click(screen.getByRole("button", { name: "All" }));
-    expect(
-      screen.getByRole("heading", { name: "Aria Coffee Rebrand" }),
+      screen.getByText("This is a new project description."),
     ).toBeInTheDocument();
-  });
-
-  test("adds a new project through the form and saves it locally", async () => {
-    const user = userEvent.setup();
-    render(<App />);
-
-    await user.click(
-      screen.getByRole("button", { name: /^add project$/i }),
-    );
-
-    const dialog = screen.getByRole("dialog");
-    expect(
-      within(dialog).getByRole("heading", { name: "Add a project" }),
-    ).toBeInTheDocument();
-
-    await user.type(
-      within(dialog).getByLabelText(/project title/i),
-      "Neon Garden",
-    );
-    await user.type(
-      within(dialog).getByLabelText(/^description$/i),
-      "A living identity for a community garden in the city.",
-    );
-    await user.type(
-      within(dialog).getByLabelText(/disciplines/i),
-      "Identity, Digital",
-    );
-    await user.click(
-      within(dialog).getByRole("button", { name: /add project/i }),
-    );
-
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
-    const newProject = screen
-      .getByRole("heading", { name: "Neon Garden" })
-      .closest("article");
-    expect(newProject).not.toBeNull();
-    expect(within(newProject).getByText("Identity")).toBeInTheDocument();
 
     await waitFor(() => {
-      const stored = JSON.parse(
-        window.localStorage.getItem(STORAGE_KEY),
+      const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+      expect(stored[0].title).toBe("New Project");
+      expect(stored[0].description).toBe(
+        "This is a new project description.",
       );
-      expect(stored[0].title).toBe("Neon Garden");
-      expect(stored[0].tags).toEqual(["Identity", "Digital"]);
     });
   });
 
-  test("validates required fields before adding a project", async () => {
+  test("shows an error when the add form is empty", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.click(
-      screen.getByRole("button", { name: /^add project$/i }),
-    );
-    const dialog = screen.getByRole("dialog");
-
-    await user.click(
-      within(dialog).getByRole("button", { name: /add project/i }),
-    );
+    await user.click(screen.getByRole("button", { name: "Add Project" }));
 
     expect(
-      within(dialog).getByText("Give the project a title."),
+      screen.getByRole("alert"),
+    ).toHaveTextContent("Please enter a project title and description.");
+    expect(
+      screen.getByRole("heading", { name: "Project 1" }),
     ).toBeInTheDocument();
-    expect(
-      within(dialog).getByText("Add a short description of the work."),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
-  });
-
-  test("in-page navigation links point to the correct sections", () => {
-    render(<App />);
-
-    const navigation = screen.getByRole("navigation", {
-      name: "Main navigation",
-    });
-
-    expect(within(navigation).getByRole("link", { name: "Work" })).toHaveAttribute(
-      "href",
-      "#work",
-    );
-    expect(
-      within(navigation).getByRole("link", { name: "About" }),
-    ).toHaveAttribute("href", "#studio");
-    expect(
-      within(navigation).getByRole("link", { name: "Contact" }),
-    ).toHaveAttribute("href", "#contact");
-
-    expect(document.querySelector("#work")).toBeInTheDocument();
-    expect(document.querySelector("#studio")).toBeInTheDocument();
-    expect(document.querySelector("#contact")).toBeInTheDocument();
   });
 
   test("removes a project from the list", async () => {
@@ -167,11 +93,11 @@ describe("Project showcase", () => {
     render(<App />);
 
     await user.click(
-      screen.getByRole("button", { name: "Remove Aria Coffee Rebrand" }),
+      screen.getByRole("button", { name: "Remove Project 1" }),
     );
 
     expect(
-      screen.queryByRole("heading", { name: "Aria Coffee Rebrand" }),
+      screen.queryByRole("heading", { name: "Project 1" }),
     ).not.toBeInTheDocument();
   });
 });

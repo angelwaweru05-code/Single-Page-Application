@@ -3,32 +3,19 @@ import userEvent from "@testing-library/user-event";
 import ProjectCard from "../components/ProjectCard";
 
 const project = {
-  id: "test-project",
-  title: "Test Project",
-  category: "Digital",
-  year: "2025",
-  description: "A short description of the test project.",
-  image: "",
-  tags: ["Web design", "Research"],
+  id: "project-1",
+  title: "Project 1",
+  description: "This is the description of project 1.",
 };
 
 describe("ProjectCard", () => {
-  test("renders the project details", () => {
+  test("renders the project title and description", () => {
     render(<ProjectCard project={project} onDeleteProject={jest.fn()} />);
 
     expect(
-      screen.getByRole("heading", { name: "Test Project" }),
+      screen.getByRole("heading", { name: "Project 1" }),
     ).toBeInTheDocument();
-    expect(screen.getByText("Year: 2025")).toBeInTheDocument();
     expect(screen.getByText(project.description)).toBeInTheDocument();
-    expect(screen.getByText("Web design")).toBeInTheDocument();
-    expect(screen.getByText("Digital")).toBeInTheDocument();
-  });
-
-  test("shows initials when there is no image", () => {
-    render(<ProjectCard project={project} onDeleteProject={jest.fn()} />);
-
-    expect(screen.getByText("TP")).toBeInTheDocument();
   });
 
   test("calls onDeleteProject with the project ID", async () => {
@@ -40,9 +27,9 @@ describe("ProjectCard", () => {
     );
 
     await user.click(
-      screen.getByRole("button", { name: "Remove Test Project" }),
+      screen.getByRole("button", { name: "Remove Project 1" }),
     );
 
-    expect(onDeleteProject).toHaveBeenCalledWith("test-project");
+    expect(onDeleteProject).toHaveBeenCalledWith("project-1");
   });
 });
