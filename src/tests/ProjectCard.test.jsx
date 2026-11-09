@@ -6,6 +6,7 @@ const project = {
   id: "project-1",
   title: "Project 1",
   description: "This is the description of project 1.",
+  tech: ["React", "JavaScript"],
 };
 
 describe("ProjectCard", () => {
@@ -16,6 +17,9 @@ describe("ProjectCard", () => {
       screen.getByRole("heading", { name: "Project 1" }),
     ).toBeInTheDocument();
     expect(screen.getByText(project.description)).toBeInTheDocument();
+    expect(screen.getByText("Built with:")).toBeInTheDocument();
+    expect(screen.getByText("React")).toBeInTheDocument();
+    expect(screen.getByText("JavaScript")).toBeInTheDocument();
   });
 
   test("calls onDeleteProject with the project ID", async () => {

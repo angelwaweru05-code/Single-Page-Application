@@ -24,6 +24,12 @@ describe("Personal showcase app", () => {
     expect(
       screen.getByRole("heading", { name: "React Forms" }),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "API Fetching" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "TechyBit" }),
+    ).toBeInTheDocument();
   });
 
   test("searches projects by title or description", async () => {

@@ -16,6 +16,7 @@ describe("AddProjectForm", () => {
 
     expect(screen.getByLabelText("Title")).toBeInTheDocument();
     expect(screen.getByLabelText("Description")).toBeInTheDocument();
+    expect(screen.getByLabelText("Technologies used")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Add Project" }),
     ).toBeInTheDocument();
@@ -39,16 +40,20 @@ describe("AddProjectForm", () => {
 
     const titleInput = screen.getByLabelText("Title");
     const descriptionInput = screen.getByLabelText("Description");
+    const techInput = screen.getByLabelText("Technologies used");
 
     await user.type(titleInput, "  New Project  ");
     await user.type(descriptionInput, "  A short description.  ");
+    await user.type(techInput, " React, CSS ");
     await user.click(screen.getByRole("button", { name: "Add Project" }));
 
     expect(onAddProject).toHaveBeenCalledWith({
       title: "New Project",
       description: "A short description.",
+      tech: ["React", "CSS"],
     });
     expect(titleInput).toHaveValue("");
     expect(descriptionInput).toHaveValue("");
+    expect(techInput).toHaveValue("");
   });
 });

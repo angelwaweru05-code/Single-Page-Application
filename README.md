@@ -31,6 +31,8 @@ Projects
   React Portfolio + description
   Recipe Hub + description
   React Forms + description
+  API Fetching + description
+  TechyBit + description
 ```
 
 ## Setup and usage

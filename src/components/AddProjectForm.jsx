@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function AddProjectForm({ onAddProject }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [tech, setTech] = useState("");
   const [error, setError] = useState("");
 
   function handleSubmit(event) {
@@ -17,13 +18,20 @@ export default function AddProjectForm({ onAddProject }) {
       return;
     }
 
+    const cleanTech = tech
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
     onAddProject({
       title: cleanTitle,
       description: cleanDescription,
+      tech: cleanTech,
     });
 
     setTitle("");
     setDescription("");
+    setTech("");
     setError("");
   }
 
@@ -50,6 +58,18 @@ export default function AddProjectForm({ onAddProject }) {
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           placeholder="Enter project description"
+        />
+      </div>
+
+      <div className="form-field">
+        <label htmlFor="project-tech">Technologies used</label>
+        <input
+          id="project-tech"
+          name="tech"
+          type="text"
+          value={tech}
+          onChange={(event) => setTech(event.target.value)}
+          placeholder="e.g. React, JavaScript, CSS"
         />
       </div>
 
