@@ -28,11 +28,13 @@ export default function App() {
       <Header />
 
       <main className="container page-main">
+        {/* The form sends a completed project up to handleAddProject. */}
         <section className="panel" id="add-project">
           <h2>Add Project</h2>
           <AddProjectForm onAddProject={handleAddProject} />
         </section>
 
+        {/* The search box updates the query used by useProjectFilters. */}
         <section className="panel" id="search-project">
           <h2>Search Project</h2>
           <SearchBar
@@ -42,6 +44,7 @@ export default function App() {
           />
         </section>
 
+        {/* Only the filtered projects are passed to the project grid. */}
         <section className="panel" id="projects">
           <h2>Projects</h2>
           <ProjectGrid

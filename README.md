@@ -7,11 +7,12 @@ This project was created as a student project to practise React components, stat
 ## Features
 
 - Landing page with a list of projects
-- Add-project form with title and description fields
+- Add-project form with title, description, and technologies fields
 - Search projects by title or description
 - Remove a project from the list
+- Show the technologies used to build each project
 - Save projects in the browser using `localStorage`
-- Responsive layout for desktop and mobile
+- Colorful, responsive layout for desktop and mobile
 - Keyboard-friendly form labels and accessible buttons
 - Tests using Jest and React Testing Library
 
@@ -22,6 +23,7 @@ Software Engineering
 Add Project
   Title
   Description
+  Technologies used
   Add Project button
 
 Search Project
@@ -77,9 +79,10 @@ npm run preview
 ## How to use the app
 
 1. Enter a project title and description in the **Add Project** section.
-2. Click **Add Project** to add it to the list.
-3. Use the **Search Project** box to filter projects by title or description.
-4. Click **Remove** on a project to delete it.
+2. Optionally enter the technologies used, separated by commas.
+3. Click **Add Project** to add it to the list.
+4. Use the **Search Project** box to filter projects by title or description.
+5. Click **Remove** on a project to delete it.
 
 Added and removed projects are saved in the browser and remain after a page refresh.
 
@@ -152,8 +155,15 @@ npm test
 ## Known limitations
 
 - Projects are saved only in the current browser using `localStorage`.
+- Data does not sync between different browsers or devices.
 - There is no backend, database, or login system.
 - Clearing browser storage resets the project list to the starter projects.
 - There is no edit-project feature.
 - Deleting a project has no undo option.
 - Project images and categories are not included in this simple version.
+- The app is not deployed online yet; it runs locally with Vite.
+
+## Repository
+
+Public GitHub repository:  
+https://github.com/angelwaweru05-code/Single-Page-Application
