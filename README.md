@@ -12,7 +12,7 @@ This project was created as a student project to practise React components, stat
 - Remove a project from the list
 - Show the technologies used to build each project
 - Save projects in the browser using `localStorage`
-- Colorful, responsive layout for desktop and mobile
+- Simple, responsive layout for desktop and mobile
 - Keyboard-friendly form labels and accessible buttons
 - Tests using Jest and React Testing Library
 
