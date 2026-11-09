@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container">
-        <h1>My personal Showcase App</h1>
+        <h1>Software Engineering</h1>
         <p>A simple place to add, search, and view my projects.</p>
       </div>
     </header>

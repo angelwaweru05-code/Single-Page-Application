@@ -1,4 +1,4 @@
-# My personal Showcase App
+# Software Engineering
 
 A simple single-page project showcase built with React. The page has a heading, an add-project form, a search box, and a list of projects.
 
@@ -18,7 +18,7 @@ This project was created as a student project to practise React components, stat
 ## Page layout
 
 ```text
-My personal Showcase App
+Software Engineering
 Add Project
   Title
   Description

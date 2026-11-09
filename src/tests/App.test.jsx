@@ -12,7 +12,7 @@ describe("Personal showcase app", () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: "My personal Showcase App" }),
+      screen.getByRole("heading", { name: "Software Engineering" }),
     ).toBeInTheDocument();
 
     expect(
