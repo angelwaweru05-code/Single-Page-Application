@@ -21,4 +21,5 @@ export const seedProjects = [
 ];
 
 // localStorage key used to save the project list in the browser.
-export const STORAGE_KEY = "personal-showcase-projects";
+// The version suffix makes the app load the new starter projects once.
+export const STORAGE_KEY = "personal-showcase-projects-v2";
