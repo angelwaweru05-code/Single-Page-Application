@@ -3,6 +3,7 @@ import AddProjectForm from "./components/AddProjectForm";
 import SearchBar from "./components/SearchBar";
 import ProjectGrid from "./components/ProjectGrid";
 import Footer from "./components/Footer";
+import Navigation from "./components/Navigation";
 import useProjects from "./hooks/useProjects";
 import useProjectFilters from "./hooks/useProjectFilters";
 
@@ -25,6 +26,7 @@ export default function App() {
         Skip to projects
       </a>
 
+      <Navigation />
       <Header />
 
       <main className="container page-main">

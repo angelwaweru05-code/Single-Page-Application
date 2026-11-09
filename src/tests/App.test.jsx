@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 import { STORAGE_KEY } from "../data/projects";
@@ -30,6 +30,24 @@ describe("Personal showcase app", () => {
     expect(
       screen.getByRole("heading", { name: "TechyBit" }),
     ).toBeInTheDocument();
+  });
+
+  test("navigation links point to the page sections", () => {
+    render(<App />);
+
+    const navigation = screen.getByRole("navigation", {
+      name: "Main navigation",
+    });
+
+    expect(
+      within(navigation).getByRole("link", { name: "Add Project" }),
+    ).toHaveAttribute("href", "#add-project");
+    expect(
+      within(navigation).getByRole("link", { name: "Search Project" }),
+    ).toHaveAttribute("href", "#search-project");
+    expect(
+      within(navigation).getByRole("link", { name: "Projects" }),
+    ).toHaveAttribute("href", "#projects");
   });
 
   test("searches projects by title or description", async () => {
