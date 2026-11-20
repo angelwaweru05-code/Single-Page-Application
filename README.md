@@ -168,7 +168,7 @@ npm test
 The site is deployed to GitHub Pages from the `gh-pages` branch:
 https://angelwaweru05-code.github.io/Single-Page-Application/
 
-Every push to `main` runs the **Deploy to GitHub Pages** workflow (`.github/workflows/deploy.yml`), which builds the Vite app and publishes the generated `dist/` files to `gh-pages`. Vite uses `base: "./"` so the bundled assets load correctly from the `/Single-Page-Application/` subpath.
+Every push to `main` runs the **Deploy to GitHub Pages** workflow (`.github/workflows/deploy.yml`), which builds the Vite app and publishes the generated `dist/` files to the `gh-pages` branch. Vite uses `base: "./"` so the bundled assets load correctly from the `/Single-Page-Application/` subpath. Do not edit `gh-pages` by hand; it is generated output.
 
 ## Repository
 
