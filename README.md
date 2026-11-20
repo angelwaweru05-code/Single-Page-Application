@@ -161,7 +161,14 @@ npm test
 - There is no edit-project feature.
 - Deleting a project has no undo option.
 - Project images and categories are not included in this simple version.
-- The app is not deployed online yet; it runs locally with Vite.
+- The app is hosted on GitHub Pages with no backend.
+
+## Deployment
+
+The site is deployed to GitHub Pages from the `gh-pages` branch:
+https://angelwaweru05-code.github.io/Single-Page-Application/
+
+Every push to `main` runs the **Deploy to GitHub Pages** workflow (`.github/workflows/deploy.yml`), which builds the Vite app and publishes the generated `dist/` files to `gh-pages`. Vite uses `base: "./"` so the bundled assets load correctly from the `/Single-Page-Application/` subpath.
 
 ## Repository
 
